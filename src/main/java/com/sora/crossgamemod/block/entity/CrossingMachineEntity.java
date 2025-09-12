@@ -2,6 +2,7 @@ package com.sora.crossgamemod.block.entity;
 import com.sora.crossgamemod.lib.base.IMachineLogic;
 import com.sora.crossgamemod.lib.message.ItemPackage;
 import com.sora.crossgamemod.lib.message.ItemResponse;
+import com.sora.crossgamemod.lib.net.BaseUdpClient;
 import com.sora.crossgamemod.lib.net.MachineEntity;
 import com.sora.crossgamemod.lib.net.MachineIOType;
 import com.sora.crossgamemod.screen.CrossingMachineMenu;
@@ -261,6 +262,7 @@ public class CrossingMachineEntity extends BlockEntity implements MenuProvider, 
     }
 
     public void setData(int channelIndex, int ioType) {
+        if (!BaseUdpClient.judgeOnline()) return;
         this.channel = channelIndex;
         this.ioType = MachineIOType.values()[ioType];
         if(level != null && !level.isClientSide) {
@@ -296,6 +298,7 @@ public class CrossingMachineEntity extends BlockEntity implements MenuProvider, 
 
     @Override
     public void preSend() {
+        if (!BaseUdpClient.judgeOnline()) return;
         _tempSendItem = itemHandler.getStackInSlot(INPUT_SLOT).copyAndClear();
     }
 
@@ -329,6 +332,7 @@ public class CrossingMachineEntity extends BlockEntity implements MenuProvider, 
 
 
     public void sendSignal() {
+        if (!BaseUdpClient.judgeOnline()) return;
         UdpEntity.sendSignal(channel);
     }
 }

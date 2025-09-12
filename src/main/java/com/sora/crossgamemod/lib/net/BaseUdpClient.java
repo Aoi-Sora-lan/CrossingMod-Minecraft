@@ -21,6 +21,7 @@ public class BaseUdpClient implements AutoCloseable {
     private AtomicBoolean isRunning = new AtomicBoolean(false);
     private Thread receiveThread;
     private Thread handleThread;
+    public static boolean IsOnline;
 
     public BaseUdpClient(int port, String remoteIp, int remotePort) throws SocketException, UnknownHostException {
         this.remoteEndPoint = new InetSocketAddress(InetAddress.getByName(remoteIp), remotePort);
@@ -180,6 +181,14 @@ public class BaseUdpClient implements AutoCloseable {
                 e.printStackTrace();
             }
         }
+    }
+    public static boolean judgeOnline()
+    {
+        if (!IsOnline)
+        {
+            return false;
+        }
+        return true;
     }
 
     @Override
