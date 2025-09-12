@@ -63,19 +63,19 @@ public class CrossingMachineScreen extends AbstractContainerScreen<CrossingMachi
         MachineIOType ioType = this.menu.getIoType();
 
         // 渲染频道信息
-        String channelText = "Channel: " + channel;
+        String channelText = "频道：" + channel;
         guiGraphics.drawString(this.font, channelText, x + 35, y + 15, 0xFFFFFF);
 
         // 渲染IO类型信息
-        String ioTypeText = "Mode: " + getIoTypeDisplayName(ioType);
+        String ioTypeText = "模式：" + getIoTypeDisplayName(ioType);
         guiGraphics.drawString(this.font, ioTypeText, x + 35, y + 65, 0xFFFFFF);
     }
 
     private String getIoTypeDisplayName(MachineIOType ioType) {
         switch (ioType) {
-            case Input: return "Input";
-            case Output: return "Output";
-            case None: return "Disabled";
+            case Input: return "输入";
+            case Output: return "输出";
+            case None: return "无";
             default: return "Unknown";
         }
     }
@@ -89,23 +89,23 @@ public class CrossingMachineScreen extends AbstractContainerScreen<CrossingMachi
 
         guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
         renderStatusText(guiGraphics, x, y);
-        renderButton(guiGraphics, x, y);
-        renderButtonA(guiGraphics, x, y);
-        renderButtonB(guiGraphics, x, y);
+        renderButtonMinus(guiGraphics, x, y);
+        renderButtonAdd(guiGraphics, x, y);
+        renderButtonIO(guiGraphics, x, y);
         renderProgressArrow(guiGraphics, x, y);
     }
 
-    private void renderButton(GuiGraphics guiGraphics, int x, int y){
+    private void renderButtonMinus(GuiGraphics guiGraphics, int x, int y){
         guiGraphics.blit(TEXTURE, x + 10, y + 31, 192, 0, 20,22);
-        guiGraphics.blit(TEXTURE, x+12,y+33,menu.isRedStone() ? 208:192 ,32,16,16);
+        guiGraphics.blit(TEXTURE, x+12,y+33,208 ,48,16,16);
     }
-    private void renderButtonA(GuiGraphics guiGraphics, int x, int y){
+    private void renderButtonAdd(GuiGraphics guiGraphics, int x, int y){
         guiGraphics.blit(TEXTURE, x + 10, y + 4, 192, 0, 20,22);
-        guiGraphics.blit(TEXTURE, x+12,y+6,menu.isRedStone() ? 208:192 ,32,16,16);
+        guiGraphics.blit(TEXTURE, x+12,y+6,192 ,48,16,16);
     }
-    private void renderButtonB(GuiGraphics guiGraphics, int x, int y){
+    private void renderButtonIO(GuiGraphics guiGraphics, int x, int y){
         guiGraphics.blit(TEXTURE, x + 10, y + 58, 192, 0, 20,22);
-        guiGraphics.blit(TEXTURE, x+12,y+60,menu.isRedStone() ? 208:192 ,32,16,16);
+        guiGraphics.blit(TEXTURE, x + 12,y + 60, 192,64,16,16);
     }
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCrafting()) {
