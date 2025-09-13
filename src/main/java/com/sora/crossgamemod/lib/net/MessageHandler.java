@@ -3,6 +3,7 @@ package com.sora.crossgamemod.lib.net;
 import com.sora.crossgamemod.lib.base.IMachineLogic;
 import com.sora.crossgamemod.lib.message.ItemPackage;
 import com.sora.crossgamemod.lib.message.ItemResponse;
+import com.sora.crossgamemod.lib.message.Response;
 import com.sora.crossgamemod.lib.net.Message;
 
 import java.io.IOException;
@@ -87,6 +88,10 @@ public class MessageHandler {
     }
 
     private void handleResponse(Message response) {
+        if (response.getContent(Response.class).isSuccess)
+        {
+            BaseUdpClient.IsOnline = true;
+        }
     }
 
     public void sendRegister() {

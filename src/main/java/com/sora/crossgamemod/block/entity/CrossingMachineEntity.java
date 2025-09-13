@@ -7,6 +7,7 @@ import com.sora.crossgamemod.lib.net.MachineEntity;
 import com.sora.crossgamemod.lib.net.MachineIOType;
 import com.sora.crossgamemod.screen.CrossingMachineMenu;
 import com.sora.crossgamemod.utils.UdpSystem;
+import net.minecraft.ResourceLocationException;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -279,12 +280,24 @@ public class CrossingMachineEntity extends BlockEntity implements MenuProvider, 
         if(itemId == null) return;
         UdpEntity.sendItemRequestMessage(channel, itemId, itemHandler.getStackInSlot(INPUT_SLOT).getCount());
     }
+    public boolean doesItemExist(String itemId) {
+        try {
+            // 将字符串转换为 ResourceLocation
+            ResourceLocation resourceLocation = new ResourceLocation(itemId);
+
+            // 检查注册表中是否存在该物品
+            return ForgeRegistries.ITEMS.containsKey(resourceLocation);
+        } catch (ResourceLocationException e) {
+            // 如果字符串格式无效（如包含非法字符）
+            return false;
+        }
+    }
     @Override
     public boolean CanTransfer(String itemId, int itemCount) {
+        if(!doesItemExist(itemId)) return false;
         var outputSlot = itemHandler.getStackInSlot(OUTPUT_SLOT);
         if (outputSlot.isEmpty()) return true;
         var itemName = ForgeRegistries.ITEMS.getKey(outputSlot.getItem()).toString();
-        System.out.println(itemName);
         var idDiff = itemId != itemName;
         if (idDiff) return false;
         var transCount = Math.max(0, 64 - itemHandler.getStackInSlot(OUTPUT_SLOT).getCount());

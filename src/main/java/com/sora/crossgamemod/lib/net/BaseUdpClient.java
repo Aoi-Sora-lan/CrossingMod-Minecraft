@@ -193,8 +193,8 @@ public class BaseUdpClient implements AutoCloseable {
 
     @Override
     public void close() {
+        IsOnline = false;
         isRunning.set(false);
-
         if (receiveThread != null) {
             receiveThread.interrupt();
         }
