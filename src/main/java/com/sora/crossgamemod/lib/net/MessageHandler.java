@@ -126,7 +126,7 @@ public class MessageHandler {
 
         boolean canTransfer = logic.CanTransfer(content.itemId, content.itemCount);
         if (canTransfer) {
-            int maxNeed = logic.getMaxNeedCount();
+            int maxNeed = logic.getMaxNeedCount(content.itemId, content.itemCount);
             int count = Math.min(maxNeed, content.itemCount);
             sendMessage(messageBuilder
                     .copy(itemRequest)

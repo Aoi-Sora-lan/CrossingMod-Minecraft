@@ -5,7 +5,7 @@ import com.sora.crossgamemod.lib.message.ItemResponse;
 
 public interface IMachineLogic {
     public boolean CanTransfer(String itemId, int itemCount);
-    int getMaxNeedCount();
+    int getMaxNeedCount(String itemId, int itemCount);
     void preSend();
     void sendSuccess(ItemResponse contentValue);
     void sendFailure();

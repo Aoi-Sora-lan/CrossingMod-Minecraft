@@ -300,13 +300,17 @@ public class CrossingMachineEntity extends BlockEntity implements MenuProvider, 
         var itemName = ForgeRegistries.ITEMS.getKey(outputSlot.getItem()).toString();
         var idDiff = itemId != itemName;
         if (idDiff) return false;
-        var transCount = Math.max(0, 64 - itemHandler.getStackInSlot(OUTPUT_SLOT).getCount());
+        var transCount = Math.max(0, itemHandler.getStackInSlot(OUTPUT_SLOT).getMaxStackSize() - itemHandler.getStackInSlot(OUTPUT_SLOT).getCount());
         return transCount > 0;
     }
 
     @Override
-    public int getMaxNeedCount() {
-        return Math.max(0, 64 - itemHandler.getStackInSlot(OUTPUT_SLOT).getCount());
+    public int getMaxNeedCount(String itemId, int itemCount) {
+        var itemNow = itemHandler.getStackInSlot(OUTPUT_SLOT);
+        if (!itemNow.isEmpty()) return Math.max(0, itemNow.getMaxStackSize() - itemNow.getCount());
+        var item = getItem(itemId);
+        ItemStack result = new ItemStack(item,itemCount);
+        return Math.max(0, result.getMaxStackSize());
     }
 
     @Override
