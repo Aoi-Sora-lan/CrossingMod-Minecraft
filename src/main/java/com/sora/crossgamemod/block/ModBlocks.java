@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -22,7 +23,7 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, CrossGameMod.MODID);
     public static final RegistryObject<Block> CROSSING_MACHINE =
             registerBlock("crossing_machine",
-                    () -> new CrossingMachine(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+                    () -> new CrossingMachine(BlockBehaviour.Properties.copy(Blocks.STONE).destroyTime(0.5f).strength(0.1f)));
     /*    public static final RegistryObject<Block> CROSSING_MACHINE = registerBlock("crossing_machine",
             () -> new CrossingMachineBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));*/
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
